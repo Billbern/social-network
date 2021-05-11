@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/post_page.css') }}">
+    <title>{{title}}</title>
+</head>
+<body>
+    <div class="main_content">
+        <div class="center_piece">
+            <form action="" method="post" id="postForm">
+                <div class="form_group">
+                    <input type="text" name="formContent" id="formContent" />
+                    <button class="formBtn"><svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M0 501.64L157.53 256 0 10.36 512 256z" fill="#8ad5dd"/></svg></button>
+                </div>
+            </form>
+            <div class="post_content">
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="{{url_for('static', filename='js/socket.io.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/moment.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/websock.js')}}"></script>
+</body>
+</html>

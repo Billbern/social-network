@@ -1,0 +1,118 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    font-size: 15px;
+    font-weight: 500;
+    font-family: cursive;
+    background-color: #defdef;
+}
+
+.main_content .center_piece{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.center_piece form {
+    padding: 24px;
+}
+
+form .form_group{
+    height: 48px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgb(128, 128, 128);
+}
+
+.form_group{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form_group input{
+    height: 100%;
+    border: none;
+    width: 76.92%;
+    font-size: 18px;
+    padding-left: 16px;
+}
+
+.form_group input:focus{
+    outline: none;
+}
+
+.form_group button{
+    border: none;
+    height: 100%;
+    width: 23.08%;
+    padding-top: 8px;
+    background-color: rgb(17, 152, 185);
+}
+
+button svg{
+    height: 32px;
+}
+
+button svg path{
+    fill: #ffffff;
+}
+
+.post_content .post-item{
+    position: relative;
+    margin: 24px auto;
+    min-height: 160px;
+    padding: 16px 24px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.post-item .bottom-content{
+    display: flex;
+    height: min-content;
+    padding-bottom: 8px;
+    width: calc(100% - 48px);
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+}
+
+.bottom-content .like{
+    position: relative;
+}
+
+.bottom-content .like small{
+    position: absolute;
+    top: -4px;
+    right: -8px;
+}
+
+
+@media screen and (max-width: 600px) {
+    form .form_group, .post_content .post-item{
+        width: calc(100vw - 256px);
+    }
+    
+}
+
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+    form .form_group, .post_content .post-item{
+        width: calc(100vw - 256px);
+    }
+
+}
+
+@media screen and (min-width: 1024px) {
+    form .form_group, .post_content .post-item{
+        width: calc(50vw - 48px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
