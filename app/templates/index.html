@@ -4,12 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/post_page.css') }}">
+    {% include 'partials/style2.html'%}
     <title>{{title}}</title>
 </head>
 <body>
     <div class="main_content">
         <div class="center_piece">
+            <header>
+                <div class="logo_area">
+                    <a class="logo" href="/">S0cial Netw0rk</a>
+                </div>
+                <div class="link_area">
+                    <ul>
+                        <li><a href="/profile/{{user}}">Profile</a></li>
+                        <li><a href="#">Notification</a></li>
+                        <li><a href="#">Messages</a></li>
+                        <li><a href="/auth/logout">logout</a></li>
+                    </ul>
+                </div>
+            </header>
             <form action="" method="post" id="postForm">
                 <div class="form_group">
                     <input type="text" name="formContent" id="formContent" />
@@ -17,11 +30,58 @@
                 </div>
             </form>
             <div class="post_content">
+                {% if data %}
+                    {% for post in data %}
+                        <div class="post-item" data-content="[ {{post.id}}, {{post.content}}, {{post.image}} ]">
+                            <div class="top-content">
+                                <span class="post-menu-btn" onclick="menuDisplay(this)">
+                                    <svg viewBox="0 0 290 145" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M255 37.5c-19.299 0-35 15.701-35 35s15.701 35 35 35 35-15.701 35-35-15.701-35-35-35zM35 37.5c-19.299 0-35 15.701-35 35s15.701 35 35 35 35-15.701 35-35-15.701-35-35-35zM145 37.5c-19.299 0-35 15.701-35 35s15.701 35 35 35 35-15.701 35-35-15.701-35-35-35z"/>
+                                    </svg>
+                                </span>
+                                <p class="text">{{post.content}}</p>
+                            </div>
+                            <div class="bottom-content">
+                                <span class="like">
+                                    &#128077;
+                                    <small>0</small>
+                                </span>
+                                <span class="time">
+                                    <small></small>
+                                    <input type="hidden" name="dummy" value="{{post.createdAt}}">
+                                </span>
+                            </div>
+                            <div class="post-menu close-menu">
+                                <ul>
+                                    <li>
+                                        <button  class="edit-post">Edit Post</button>
+                                    </li>
+                                    <li>
+                                        <button class="delete-post">Delete Post</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-container">
+                        <p>No post yet</p>
+                    </div>
+                {% endif %}
                 
             </div>
         </div>
     </div>
+    <div class="post-update">
+        <form method="post">
+            <textarea name="updatecontent" id="updateContent" cols="30" rows="5"></textarea>
+            <div>
 
+            </div>
+            <button>Update</button>
+        </form>
+    </div>
+    {% include "partials/flash.html" %}
     <script src="{{url_for('static', filename='js/socket.io.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/moment.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/websock.js')}}"></script>

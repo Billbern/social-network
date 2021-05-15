@@ -1,0 +1,122 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    font-size: 15px;
+    font-weight: 500;
+    position: relative;
+    font-family: cursive;
+    background-color: #defdef;
+}
+
+body .flashes{
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    transition: all 10s ease-in-out;
+    animation: animateInRight;
+}
+
+body .flashes li{
+    color: #ffffff;
+    list-style: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+.flashes li:not(:last-child){
+    margin-bottom: 16px;
+}
+
+.flashes .info{
+    background-color: #007bff;
+}
+
+.flashes .error{
+    background-color: #dc3545;
+}
+
+
+body .post-profile{
+    width: 600px;
+    margin: auto;
+    display: flex;
+    padding-top: 64px;
+    position: relative;
+    align-items: center;
+}
+
+.post-profile .user-image{
+    position: relative;
+    margin-right: 24px;
+}
+
+.user-image input[type=file]{
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+.user-image span{
+    padding: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+.user-image span svg{
+    width: 128px;
+    height: 128px;
+}
+
+.user-image svg circle, 
+.user-image svg path{
+    fill: #c3c3c3;
+}
+
+.user-details input{
+    width: 45%;
+    margin-bottom: 16px;
+}
+
+
+.post-profile button{
+    position: absolute;
+    padding: 10px 24px;
+    color: #ffffff;
+    font-weight: 600;
+    bottom: -64px;
+    right: 24px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.25);
+}
+
+
+@keyframes animateInRight {
+    0%{
+        transform: translateX(-100%);
+    }
+
+    45%{
+        transform: translateX(-75%);
+    }
+
+    75%{
+        transform: translateX(-45%);
+    }
+
+    100%{
+        transform: translateX(0%);
+    }
+}

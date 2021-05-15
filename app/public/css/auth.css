@@ -1,0 +1,222 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    width: 100vw;
+    height: 100vh;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: cursive;
+    position: relative;
+}
+
+body .flashes{
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    transition: all 10s ease-in-out;
+    animation: animateInRight;
+}
+
+body .flashes li{
+    color: #ffffff;
+    padding: 10px 24px;
+    border-radius: 8px;
+    list-style: none;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+.flashes li:not(:last-child){
+    margin-bottom: 16px;
+}
+
+.flashes .info{
+    background-color: #007bff;
+}
+
+.flashes .error{
+    background-color: #dc3545;
+}
+
+body .root{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #E3E4FA;
+}
+
+.root .root-pic{
+    height: 100%;
+    flex: 1 1 50%;
+    background-image: url('../img/default/bg.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.root .root-form{
+    height: 100%;
+    flex: 1 1 50%;
+}
+
+.root-form > div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.root-form div h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.root-form div p{
+    width: 50%;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.root-form div p.smlln{
+    font-size: 12px;
+}
+
+.root-form div form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+form input{
+    width: 50%;
+    height: 40px;
+    border: none;
+    outline: none;
+    padding-left: 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+form input[type=submit]{
+    color: #fff;
+    font-weight: 600;
+    padding-left: 0px;
+    background-color: #28a745;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+.main header{
+    width: 100%;
+    background-color: #6c63ff;
+}
+
+.main header nav{
+    width: 70%;
+    height: 70px;
+    display: flex;
+    margin: 0px auto;
+    color: #ffffff;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main header nav a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.main main {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    margin: 32px auto 0px auto;
+    justify-content: space-between;
+}
+
+main .sidebar{
+    height: 100%;
+    flex-basis: 35%;
+}
+
+.sidebar .user-info{
+    width: 100%;
+    height: 200px;
+}
+
+.user-info .user-placad{
+    height: 60%;
+    width: 100%;
+    background-color: #decdec;
+}
+
+.user-info .user-body{
+    height: 40%;
+    width: 100%;
+    border-left: 1px solid #decded;
+    border-right: 1px solid #decded;
+    border-bottom: 1px solid #decded;
+}
+
+main .main-content{
+    height: 100%;
+    flex-basis: 65%;
+}
+
+.main-content .content-post{
+    width: 90%;
+    margin-left: auto;
+}
+
+.content-post form{
+    width: 100%;
+    padding: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.content-post form textarea{
+    width: 100%;
+    outline: none;
+    padding-top: 16px;
+    padding-left: 16px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    display: inline-block;
+    border: 1px solid #ccc;
+}
+
+.content-post form > div{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+@keyframes animateInRight {
+    0%{
+        transform: translateX(-100%);
+    }
+
+    45%{
+        transform: translateX(-75%);
+    }
+
+    75%{
+        transform: translateX(-45%);
+    }
+
+    100%{
+        transform: translateX(0%);
+    }
+}
