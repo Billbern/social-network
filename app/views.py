@@ -96,10 +96,10 @@ def login():
     else:
         if request.method == 'POST':
             username = request.form.get('username')
-            password = bytes(request.form.get('userpass'), 'utf-8')
+            password = u"%s"%(request.form.get('userpass'))
             prospectiveuser = User.query.filter(User.username == username).first()
             if prospectiveuser:
-                if bcrypt.checkpw(password, prospectiveuser.password):
+                if bcrypt.checkpw(password.encode('utf-8'), prospectiveuser.password):
                     session['user_id'] = prospectiveuser.id
                     session['user_name'] = prospectiveuser.username
                     session['profile_id'] = ""
@@ -122,10 +122,10 @@ def register():
     else:
         if request.method == 'POST':
             username = request.form.get('username')
-            password = bytes(request.form.get('userpass'), 'utf-8')
-            confirmpass = bytes(request.form.get('confirmpass'), 'utf-8')
+            password = u"%s"%(request.form.get('userpass'))
+            confirmpass = u"%s"%(request.form.get('confirmpass'))
             if password == confirmpass:
-                passhash = bcrypt.hashpw(password, bcrypt.gensalt(10))
+                passhash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(10))
                 new_user = User(username=username, password=passhash)
                 db.session.add(new_user)
                 db.session.commit()
