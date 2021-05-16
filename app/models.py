@@ -17,7 +17,7 @@ class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), index=False, unique=True, nullable=False)
-    password = db.Column(db.String(200), index=False, unique=True, nullable=False)
+    password = db.Column(db.LargeBinary(), index=False, unique=True, nullable=False)
     profile = db.relationship('Profile', backref='metadata', uselist=False)
     createdAt = db.Column(db.DateTime, default=datetime.utcnow)
     updatedAt = db.Column(db.DateTime)
