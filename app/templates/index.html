@@ -15,7 +15,7 @@
                 <div class="form_group">
                     <input type="text" name="formContent" id="formContent" required/>
                     <div class="postupload">
-                        <input type="file" name="postimage" id="postImage" title="click to select an image" accept="image/*" multiple/>
+                        <input type="file" name="postimage" id="postImage" title="click to select an image" accept="image/*" />
                         <svg viewBox="0 0 487.48 487.48" xmlns="http://www.w3.org/2000/svg"><path d="M10 63.277c-5.523 0-10 4.478-10 10v340.93c0 5.522 4.477 10 10 10h467.48c5.522 0 10-4.478 10-10V73.277c0-5.522-4.477-10-10-10H10zm10 20h447.48v235.24l-104.02-80.07a10 10 0 00-11.557-.457l-68.297 44.455-134.75-92.416a9.999 9.999 0 00-10.705-.385l-118.16 69.137v-175.5zm261.54 221c.627.123 1.262.19 1.898.191-.676.117-1.213.05-1.898-.191z"/><path d="M280.71 218.28c26.063 0 47.266-21.202 47.266-47.264 0-26.058-21.203-47.258-47.266-47.258-26.062 0-47.264 21.2-47.264 47.258 0 26.062 21.202 47.264 47.264 47.264zm0-74.521c15.034 0 27.266 12.228 27.266 27.258 0 15.033-12.231 27.264-27.266 27.264-15.033 0-27.264-12.23-27.264-27.264 0-15.031 12.231-27.258 27.264-27.258z"/></svg>
                     </div>
                     <button class="formBtn"><svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M0 501.64L157.53 256 0 10.36 512 256z" fill="#8ad5dd"/></svg></button>
@@ -33,6 +33,13 @@
                                 </span>
                                 <p class="text">{{post.content}}</p>
                             </div>
+                            {% if post.image %}
+                                <div class="mid-content">
+                                    {% for url in post.image %}
+                                        <img src="{{url}}" alt="{{post.image[0].description}}">
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                             <div class="bottom-content">
                                 <span class="like">
                                     &#128077;

@@ -16,10 +16,10 @@
             <div class="profile-data">
                 {% if profile %}
                     <div class="profile-img">
-                        <img src="/{{profile.image}}" alt="{{ profile.firstname }} picture">
+                        <img src="/{{profile[0].image}}" alt="{{ profile[0].firstname }} picture">
                     </div>
                     <div class="profile_details">
-                        <h4>{{profile.firstname}}</h4>
+                        <h4>{{profile[0].firstname}}</h4>
                         <span><a href="/profile/setting">🖊️</a></span>
                     </div>
                 {% else %}

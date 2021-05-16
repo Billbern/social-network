@@ -18,8 +18,7 @@ body .flashes{
     position: fixed;
     bottom: 32px;
     right: 32px;
-    transition: all 0.9s ease-in-out;
-    animation: animateInRight 5s;
+    animation: animateInRight 0.9s;
 }
 
 body .flashes li{
@@ -205,19 +204,7 @@ main .main-content{
 
 @keyframes animateInRight {
     0%{
-        transform: translateX(-100%);
-    }
-
-    25%{
-        transform: translateX(-75%);
-    }
-
-    50%{
-        transform: translateX(-50%);
-    }
-
-    75%{
-        transform: translateX(-25%);
+        transform: translateX(100%);
     }
 
     100%{

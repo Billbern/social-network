@@ -9,11 +9,27 @@ from app import app, socketio, emit, db, session
 @app.route('/', methods=['GET', 'POST'])
 def user_posts():
     if 'user_id' in session:
+        data = []
         if request.method == 'POST':
             if session['profile_id']:
+                
                 new_post = Post(author=session['profile_id'], content=request.form.get('formContent'))
                 db.session.add(new_post)
                 db.session.commit()
+
+                upload_file = request.files.get('postimage')
+                filename = secure_filename(upload_file.filename)
+            
+                if upload_file:
+                    if filename == '' and f'.{filename.split(".")[1]}' not in app.config["UPLOAD_EXTENSIONS"]:
+                        flash('select an image file', 'error')
+                        return redirect('/')
+                    upload_file.save(path.join(app.config['UPLOAD_PATH'], filename))
+                    
+                    new_img = Image(url=f'img/uploads/{filename}', description="nice post", owner=session["profile_id"], post=new_post.id)
+                    db.session.add(new_img)
+                    db.session.commit()
+
                 flash('new post added successfully', 'info')
                 return redirect('/')
             else:
@@ -21,11 +37,13 @@ def user_posts():
                 return redirect('/')
 
         if session['profile_id']:
-            data = [{'id': item.id, 'content': item.content, 'createdAt': item.createdAt.isoformat(), 'updatedAt': item.updatedAt} for item in Post.query.filter(Post.author==session['profile_id'])]
-        else:
-            data = []
+            for item in Post.query.filter(Post.author==session['profile_id']):
+                if item.image:
+                    data.append({'id': item.id, 'content': item.content, "image": [x.url for x in item.image], 'createdAt': item.createdAt.isoformat(), 'updatedAt': item.updatedAt})
+                else:
+                    data.append({'id': item.id, 'content': item.content, 'createdAt': item.createdAt.isoformat(), 'updatedAt': item.updatedAt})
 
-        return render_template('index.html', title="testing something", data=data, user=session['user_name'])
+        return render_template('index.html', title="testing something", data=data[::-1], user=session['user_name'])
     else:
         flash('you have to login first', 'error')
         return redirect('/auth/login')
@@ -39,7 +57,7 @@ def handle_profile(username):
         else:
             profile_data = ''
             data = []
-        return render_template('profile.html', title=f"{username}'s Profile", data=data, profile=profile_data[0], user=session["user_name"])
+        return render_template('profile.html', title=f"{username}'s Profile", data=data, profile=profile_data, user=session["user_name"])
     else:
         flash('you have to login first', 'error')
         return redirect('/auth/login')
@@ -103,6 +121,9 @@ def login():
                     session['user_id'] = prospectiveuser.id
                     session['user_name'] = prospectiveuser.username
                     session['profile_id'] = ""
+                    user_profile = [{'item': item.id} for item in Profile.query.filter(Profile.user == prospectiveuser.id)]
+                    if len(user_profile) != 0:
+                        session['profile_id'] = user_profile[0]['item']
                     flash('You have successfully logged in', 'info')
                     return redirect('/')
                 else:
