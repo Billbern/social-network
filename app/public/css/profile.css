@@ -17,8 +17,8 @@ body .flashes{
     position: fixed;
     bottom: 32px;
     right: 32px;
-    transition: all 10s ease-in-out;
-    animation: animateInRight;
+    transition: all 0.9s ease-in-out;
+    animation: animateInRight 5s;
 }
 
 body .flashes li{
@@ -41,6 +41,32 @@ body .flashes li{
     background-color: #dc3545;
 }
 
+.center_piece header{
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    justify-content: space-between;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+header a{
+    text-decoration: none;
+    font-weight: 600;
+    color: #007bff;
+}
+
+header .logo{
+    padding: 0px 16px;
+}
+
+.link_area ul li{
+    list-style: none;
+    float: left;
+    padding: 0px 16px;
+}
+
 
 body .post-profile{
     width: 600px;
@@ -49,6 +75,30 @@ body .post-profile{
     padding-top: 64px;
     position: relative;
     align-items: center;
+}
+
+body .center_piece .profile-data{
+    padding-top: 48px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-data .profile-img{
+    margin-right: 16px;
+}
+
+.profile-data .profile_details{
+    position: relative;
+}
+
+.profile_details span{
+    position: absolute;
+    top: -16px;
+    right: -16px;
+}
+
+.profile_details span a{
+    text-decoration: none;
 }
 
 .post-profile .user-image{
@@ -64,8 +114,10 @@ body .post-profile{
     z-index: 5;
 }
 
-.user-image span{
-    padding: 8px;
+.user-image span, 
+.profile-data .profile-img{
+    width: 128px;
+    height: 128px;
     border-radius: 50%;
     display: inline-block;
     background-color: #fff;
@@ -73,13 +125,20 @@ body .post-profile{
     overflow: hidden;
 }
 
-.user-image span svg{
-    width: 128px;
-    height: 128px;
+.user-image span svg, 
+.profile-img svg, .profile-img img,
+.user-image span img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    vertical-align: middle;
 }
 
 .user-image svg circle, 
-.user-image svg path{
+.user-image svg path,
+.profile-img svg circle,
+.profile-img svg path{
     fill: #c3c3c3;
 }
 
@@ -95,11 +154,186 @@ body .post-profile{
     color: #ffffff;
     font-weight: 600;
     bottom: -64px;
-    right: 24px;
+    right: 32px;
     border: none;
     border-radius: 4px;
     background-color: #007bff;
     box-shadow: 0px 2px 4px rgba(0,0,0,0.25);
+}
+
+.main_content .center_piece{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.post_content .empty-container{
+    width: 500px;
+    display: flex;
+    height: 450px;
+    margin: 0px auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-container p{
+    font-size: 32px;
+    font-weight: 600;
+    color: #dcdcdc;
+    user-select: none;
+}
+
+.post_content .post-item{
+    position: relative;
+    margin: 24px auto;
+    min-height: 160px;
+    padding: 16px 24px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    transition: transform 0.5s ease-in-out, box-shadow 0.9s ease-in-out;
+}
+
+.post_content .post-item:hover{
+    transform: scale(1.025);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.post-item .top-content{
+    position: relative;
+}
+
+.top-content .post-menu-btn{
+    font-size: 24px;
+    position: absolute;
+    top: -16px;
+    right: 0;
+}
+
+.top-content .post-menu-btn:hover{
+    cursor: pointer;
+}
+
+.post-menu-btn svg{
+    width: 16px;
+}
+
+.post-item .bottom-content{
+    display: flex;
+    height: min-content;
+    padding-bottom: 8px;
+    width: calc(100% - 48px);
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+}
+
+.bottom-content .like{
+    position: relative;
+}
+
+.bottom-content .like small{
+    position: absolute;
+    top: -4px;
+    right: -8px;
+}
+
+.post-item .post-menu{
+    position: absolute;
+    top: 28px;
+    right: 24px;
+    padding: 24px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+.post-item .close-menu{
+    display: none;
+    transition: display 0.9s ease-in-out;
+}
+
+.post-menu ul li{
+    list-style: none;
+    padding: 4px 0px;
+}
+
+.post-menu .edit-post, 
+.post-menu .delete-post{
+    border: none;
+    color: #1198b9;
+    background-color: transparent;
+}
+
+.post-menu .edit-post:hover, 
+.post-menu .delete-post:hover{
+    cursor: pointer;
+}
+
+.post-update{
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    position: absolute;
+    z-index: 44;
+    top: 0;
+    bottom: 0;
+}
+
+.post-update form{
+    width: 500px;
+    min-height: 250px;
+    padding: 24px 16px;
+    border-radius: 8px;
+    text-align: right;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.post-update form > *:not(:last-child){
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.post-update form textarea{
+    font-size: 16px;
+    padding: 16px;
+}
+
+.post-update form button{
+    font-weight: 600;
+    color: #ffffff;
+    padding: 10px 24px;
+    background-color: #1198b9;
+    border-radius: 4px;
+    border: none;
+}
+
+
+@media screen and (max-width: 600px) {
+    form .form_group, .post_content .post-item{
+        width: calc(100vw - 256px);
+    }
+    
+}
+
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+    form .form_group, .post_content .post-item{
+        width: calc(100vw - 256px);
+    }
+
+}
+
+@media screen and (min-width: 1024px) {
+    form .form_group, .post_content .post-item{
+        width: calc(50vw - 48px);
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 
@@ -108,12 +342,16 @@ body .post-profile{
         transform: translateX(-100%);
     }
 
-    45%{
+    25%{
         transform: translateX(-75%);
     }
 
+    50%{
+        transform: translateX(-50%);
+    }
+
     75%{
-        transform: translateX(-45%);
+        transform: translateX(-25%);
     }
 
     100%{

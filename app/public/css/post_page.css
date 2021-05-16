@@ -17,8 +17,8 @@ body .flashes{
     position: fixed;
     bottom: 32px;
     right: 32px;
-    transition: all 10s ease-in-out;
-    animation: animateInRight;
+    transition: all 0.9s ease-in-out;
+    animation: animateInRight 5s;
 }
 
 body .flashes li{
@@ -93,10 +93,10 @@ form .form_group{
 }
 
 .form_group input{
+    width: 75%;
     height: 100%;
     border: none;
-    width: 76.92%;
-    font-size: 18px;
+    font-size: 16px;
     padding-left: 16px;
 }
 
@@ -104,10 +104,33 @@ form .form_group{
     outline: none;
 }
 
+.form_group .postupload{
+    width: 10%;
+    height: 100%;
+    position: relative;
+}
+
+.postupload input{
+    z-index: 5;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.postupload svg{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    fill: #cdcdcd;
+    object-position: center;
+    background-color: #ffffff;
+}
+
 .form_group button{
+    width: 15%;
     border: none;
     height: 100%;
-    width: 23.08%;
     padding-top: 8px;
     background-color: #1198b9;
 }
@@ -294,12 +317,16 @@ button svg path{
         transform: translateX(-100%);
     }
 
-    45%{
+    25%{
         transform: translateX(-75%);
     }
 
+    50%{
+        transform: translateX(-50%);
+    }
+
     75%{
-        transform: translateX(-45%);
+        transform: translateX(-25%);
     }
 
     100%{

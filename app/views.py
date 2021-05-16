@@ -10,7 +10,7 @@ from app import app, socketio, emit, db, session
 def user_posts():
     if 'user_id' in session:
         if request.method == 'POST':
-            if 'profile_id' in session:
+            if session['profile_id']:
                 new_post = Post(author=session['profile_id'], content=request.form.get('formContent'))
                 db.session.add(new_post)
                 db.session.commit()
@@ -20,50 +20,73 @@ def user_posts():
                 flash('you have to create a profile before you can post', 'error')
                 return redirect('/')
 
-        if 'profile_id' in session:
+        if session['profile_id']:
             data = [{'id': item.id, 'content': item.content, 'createdAt': item.createdAt.isoformat(), 'updatedAt': item.updatedAt} for item in Post.query.filter(Post.author==session['profile_id'])]
         else:
             data = []
 
-        return render_template('index.html', title="testing something", data=data, user=session['user']['user_name'])
+        return render_template('index.html', title="testing something", data=data, user=session['user_name'])
     else:
         flash('you have to login first', 'error')
         return redirect('/auth/login')
 
 @app.route('/profile/<username>', methods=['GET', 'POST'])
 def handle_profile(username):
-    if 'user' in session:
+    if 'user_id' in session:
+        if session['profile_id']:
+            profile_data =  [{'firstname': data.firstname, 'lastname': data.lastname, 'email': data.email, 'image': data.image[0].url} for data in Profile.query.filter().join(Profile.image)]
+            data = [{'id': item.id, 'content': item.content, 'createdAt': item.createdAt.isoformat(), 'updatedAt': item.updatedAt} for item in Post.query.filter(Post.author==session['profile_id'])]
+        else:
+            profile_data = ''
+            data = []
+        return render_template('profile.html', title=f"{username}'s Profile", data=data, profile=profile_data[0], user=session["user_name"])
+    else:
+        flash('you have to login first', 'error')
+        return redirect('/auth/login')
+
+@app.route('/profile/setting', methods=['GET', 'POST'])
+def settings():
+    if "user_id" in session:
+        username = session["user_name"]
+        
         if request.method == 'POST':
             firstname = request.form.get('firstname')
             lastname = request.form.get('lastname')
             email = request.form.get('profile_email')
-
-            new_profile = Profile(firstname=firstname, lastname=lastname, email=email, user=session['user']['id'])
+            
+            new_profile = Profile(firstname=firstname, lastname=lastname, email=email, user=session['user_id'])
             db.session.add(new_profile)
             db.session.commit()
-
+            
             upload_file = request.files.get('imageupload')
             filename = secure_filename(upload_file.filename)
-
+            
             if upload_file:
                 if filename == '' and f'.{filename.split(".")[1]}' not in app.config["UPLOAD_EXTENSIONS"]:
                     flash('select an image file', 'error')
                     return redirect(f'/profile/{username}')
+                
                 upload_file.save(path.join(app.config['UPLOAD_PATH'], filename))
                 
                 new_img = Image(url=f'img/uploads/{filename}', description="profile picture", owner=new_profile.id)
                 db.session.add(new_img)
                 db.session.commit()
+
+                session['profile_id'] = new_profile.id
+
                 flash('profile has been updated', 'info')
                 return redirect(f'/profile/{username}')
             
+
+            session['profile_id'] = new_profile.id
+            
             flash('profile has been updated', 'info')
-            return redirect('/')
-        else:
-            return render_template('profile.html', title=f"{username}'s Profile")
-    else:
-        flash('you have to login first', 'error')
-        return redirect('/auth/login')
+            return redirect(f'/profile/{username}')
+
+        return render_template('profileupdate.html', title="setting", user=session['user_name'])
+    
+    flash('you have to login first', 'error')
+    return redirect('/auth/login')
 
 @app.route('/auth/login', methods=['GET', 'POST'])
 def login():
@@ -79,11 +102,7 @@ def login():
                 if bcrypt.checkpw(password, prospectiveuser.password):
                     session['user_id'] = prospectiveuser.id
                     session['user_name'] = prospectiveuser.username
-                    try:
-                        user_profile = Profile.query.filter(Profile.user == prospectiveuser.id)
-                        session['user'] = {'id': prospectiveuser.id, 'user_name': prospectiveuser.username, 'profile_id': user_profile.id}
-                    except:
-                        session['user'] = {'id': prospectiveuser.id, 'user_name': prospectiveuser.username, 'profile_id': 0}
+                    session['profile_id'] = ""
                     flash('You have successfully logged in', 'info')
                     return redirect('/')
                 else:
@@ -93,7 +112,7 @@ def login():
                 flash("username or password incorrect", "error")
                 return redirect('/auth/login')
 
-        return render_template('login.html', title="Login Something")
+        return render_template('login.html', title="login Something")
 
 @app.route('/auth/register', methods=['GET', 'POST'])
 def register():

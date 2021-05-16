@@ -18,8 +18,8 @@ body .flashes{
     position: fixed;
     bottom: 32px;
     right: 32px;
-    transition: all 10s ease-in-out;
-    animation: animateInRight;
+    transition: all 0.9s ease-in-out;
+    animation: animateInRight 5s;
 }
 
 body .flashes li{
@@ -208,12 +208,16 @@ main .main-content{
         transform: translateX(-100%);
     }
 
-    45%{
+    25%{
         transform: translateX(-75%);
     }
 
+    50%{
+        transform: translateX(-50%);
+    }
+
     75%{
-        transform: translateX(-45%);
+        transform: translateX(-25%);
     }
 
     100%{

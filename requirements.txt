@@ -23,3 +23,4 @@ SQLAlchemy==1.4.14
 Werkzeug==1.0.1
 zope.event==4.5.0
 zope.interface==5.4.0
+gunicorn>=20.0.4

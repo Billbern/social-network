@@ -1,12 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include "partials/style3.html" %}
     <title>{{ title }}</title>
 </head>
+
 <body>
-    
+    <div class="main_content">
+        <div class="center_piece">
+            {% include "partials/header.html" %}
+            <div class="profile-data">
+                {% if profile %}
+                    <div class="profile-img">
+                        <img src="/{{profile.image}}" alt="{{ profile.firstname }} picture">
+                    </div>
+                    <div class="profile_details">
+                        <h4>{{profile.firstname}}</h4>
+                        <span><a href="/profile/setting">🖊️</a></span>
+                    </div>
+                {% else %}
+                    <div class="profile-img">
+                        <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><circle cx="256" cy="129.92" r="129.92" fill="#32bea6"/><path d="M461.7 512c-2.24-124.1-93.376-223.98-205.7-223.98S52.54 387.908 50.3 512h411.39z" fill="#32bea6"/></svg>
+                    </div>
+                    <div class="profile_details">
+                        <h4>Username comes here</h4>
+                        <span><a href="/profile/setting">🖊️</a></span>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="post_content">
+                {% if data %}
+                {% for post in data %}
+                <div class="post-item" data-content="[ {{post.id}}, {{post.content}}, {{post.image}} ]">
+                    <div class="top-content">
+                        <span class="post-menu-btn" onclick="menuDisplay(this)">
+                            <svg viewBox="0 0 290 145" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M255 37.5c-19.299 0-35 15.701-35 35s15.701 35 35 35 35-15.701 35-35-15.701-35-35-35zM35 37.5c-19.299 0-35 15.701-35 35s15.701 35 35 35 35-15.701 35-35-15.701-35-35-35zM145 37.5c-19.299 0-35 15.701-35 35s15.701 35 35 35 35-15.701 35-35-15.701-35-35-35z" />
+                            </svg>
+                        </span>
+                        <p class="text">{{post.content}}</p>
+                    </div>
+                    <div class="bottom-content">
+                        <span class="like">
+                            &#128077;
+                            <small>0</small>
+                        </span>
+                        <span class="time">
+                            <small></small>
+                            <input type="hidden" name="dummy" value="{{post.createdAt}}">
+                        </span>
+                    </div>
+                    <div class="post-menu close-menu">
+                        <ul>
+                            <li>
+                                <button class="edit-post">Edit Post</button>
+                            </li>
+                            <li>
+                                <button class="delete-post">Delete Post</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="empty-container">
+                    <p>No post yet</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% include "partials/flash.html" %}
 </body>
+
 </html>

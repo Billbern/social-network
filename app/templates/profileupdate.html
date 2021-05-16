@@ -8,20 +8,38 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <form class="post-profile" action="/profile/{{user}}" enctype="multipart/form-data" method="post">
-        <div class="user-image">
-            <input type="file" name="imageupload" id="uploadImage" accept="image/*"/>
-            <span>
-                <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><circle cx="256" cy="129.92" r="129.92" fill="#32bea6"/><path d="M461.7 512c-2.24-124.1-93.376-223.98-205.7-223.98S52.54 387.908 50.3 512h411.39z" fill="#32bea6"/></svg>
-            </span>
+    <div class="main_content">
+        <div class="center_piece">
+            {% include "partials/header.html" %}
+            <form class="post-profile" action="/profile/setting" enctype="multipart/form-data" method="post">
+                <div class="user-image">
+                    <input type="file" name="imageupload" id="uploadImage" accept="image/*"/>
+                    <span>
+                        <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><circle cx="256" cy="129.92" r="129.92" fill="#32bea6"/><path d="M461.7 512c-2.24-124.1-93.376-223.98-205.7-223.98S52.54 387.908 50.3 512h411.39z" fill="#32bea6"/></svg>
+                    </span>
+                </div>
+                <div class="user-details">
+                    <input type="text" name="firstname" id="firstNme" placeholder="First Name" required/>
+                    <input type="text" name="lastname" id="lastNme" placeholder="Second Name" required/>
+                    <input type="email" name="profile_email" id="profileEmail" placeholder="Email" required/>
+                </div>
+                <button>Update</button>
+            </form>
         </div>
-        <div class="user-details">
-            <input type="text" name="firstname" id="firstNme" placeholder="First Name" required/>
-            <input type="text" name="lastname" id="lastNme" placeholder="Second Name" required/>
-            <input type="email" name="profile_email" id="profileEmail" placeholder="Email" required/>
-        </div>
-        <button>Update</button>
-    </form>
+    </div>
     {% include "partials/flash.html" %}
+    <script>
+        let imageInput = document.getElementById('uploadImage');
+
+        imageInput.addEventListener('change', ()=>{
+            const imageUpload = imageInput.files[0];
+            const imageHolder = document.createElement('img');
+            if (imageUpload){
+                imageHolder.src = URL.createObjectURL(imageUpload);
+                imageInput.nextElementSibling.innerHTML = '';
+                imageInput.nextElementSibling.appendChild(imageHolder);
+            }
+        })
+    </script>
 </body>
 </html>
